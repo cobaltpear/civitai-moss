@@ -1,0 +1,168 @@
+{
+  "format": "pack/1",
+  "engine": "comfyui",
+  "kind": "Text To Image",
+  "id": "civitai-moss",
+  "label": "MOSS Image Universal",
+  "note": "Paste a Civitai model link in Cobalt Pear's «Your own worker» to set it up for that model. MOSS Image settings (official ComfyUI workflow): 25 steps, CFG 2.5, er_sde, simple. English prompts work best; put text you want drawn in quotes.",
+  "civitai": "moss",
+  "sizes": [
+    [
+      1024,
+      1024,
+      "Square"
+    ],
+    [
+      1536,
+      960,
+      "Landscape 16:10"
+    ],
+    [
+      960,
+      1536,
+      "Portrait 10:16"
+    ],
+    [
+      1152,
+      896,
+      "Landscape 4:3"
+    ],
+    [
+      896,
+      1152,
+      "Portrait 3:4"
+    ]
+  ],
+  "size_step": 16,
+  "workflow": {
+    "10": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "model.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    "11": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "qwen3.5_9b_w4a8_gptq.safetensors",
+        "type": "moss_image",
+        "device": "default"
+      }
+    },
+    "12": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "flux2-vae_small.safetensors"
+      }
+    },
+    "6": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "clip": [
+          "11",
+          0
+        ],
+        "text": ""
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "clip": [
+          "11",
+          0
+        ],
+        "text": "worst quality, bad anatomy, watermark, jpeg artifact"
+      }
+    },
+    "5": {
+      "class_type": "EmptyFlux2LatentImage",
+      "inputs": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      }
+    },
+    "3": {
+      "class_type": "KSampler",
+      "inputs": {
+        "model": [
+          "10",
+          0
+        ],
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ],
+        "latent_image": [
+          "5",
+          0
+        ],
+        "seed": 0,
+        "steps": 25,
+        "cfg": 2.5,
+        "sampler_name": "er_sde",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "3",
+          0
+        ],
+        "vae": [
+          "12",
+          0
+        ]
+      }
+    },
+    "9": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "8",
+          0
+        ],
+        "filename_prefix": "civitai-moss"
+      }
+    }
+  },
+  "prompt": [
+    [
+      "6",
+      "text"
+    ]
+  ],
+  "negative": [
+    [
+      "7",
+      "text"
+    ]
+  ],
+  "seed": [
+    [
+      "3",
+      "seed"
+    ]
+  ],
+  "width": [
+    [
+      "5",
+      "width"
+    ]
+  ],
+  "height": [
+    [
+      "5",
+      "height"
+    ]
+  ]
+}
