@@ -115,7 +115,7 @@ Each model has its own best settings — see its Civitai page (sampler, steps, C
 
 ### Compatible clients
 
-- [Cobalt Pear](https://cobaltpear.github.io/) — a one-page web app. Paste the same Civitai link under **Models → Custom**: it reads the creator's settings from Civitai and sets steps, CFG and sampler for that model. Everything stays in your browser. [Try the demo](https://cobaltpear.github.io/demo/) without RunPod.
+- [Cobalt Pear](https://cobaltpear.github.io/) — a one-page web app. Paste the same Civitai link under **Models → ＋ Your own worker**: it reads the creator's settings from Civitai and sets steps, CFG and sampler for that model. Everything stays in your browser. [Try the demo](https://cobaltpear.github.io/demo/) without RunPod.
 
 <!-- cp:page-changes -->
 RunPod and Civitai change their pages from time to time. If a button or step here looks different from what you see, tell us in [Discussions](https://github.com/cobaltpear/cobaltpear.github.io/discussions) and we'll update this guide.
